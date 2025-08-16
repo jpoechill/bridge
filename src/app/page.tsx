@@ -22,10 +22,10 @@ export default function Home() {
             Pilot · Bay Area / Oakland
           </span>
           <h1 className="text-[clamp(28px,6vw,42px)] leading-[1.2] mt-2 mb-2 font-bold text-white">
-            Connect with Khmer mentors.<br />
+
             <span className="italic font-serif text-white">
-              Grow your career. Stay rooted.
-            </span>
+              Connect with Khmer mentors.<br />
+            </span>Grow your career. Stay rooted.
           </h1>
           <p className="text-[var(--muted)] mb-3">
             Khmer Bridge links Khmer youth with Khmer‑American professionals for 1:1 guidance, skill‑building, and community.
