@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bridge",
-  description: "A modern Next.js application",
+  title: "Khmer Bridge · Mentorship for Khmer Youth",
+  description: "Khmer Bridge connects Khmer youth with Khmer-American professionals for mentorship, career guidance, and community.",
 };
 
 export default function RootLayout({
