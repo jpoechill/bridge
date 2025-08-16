@@ -25,7 +25,7 @@ export default function Home() {
 
             <span className="italic font-serif text-white">
               Connect with Khmer mentors.<br />
-            </span>Grow your career. Stay rooted.
+              Grow your career. Stay rooted.</span>
           </h1>
           <p className="text-[var(--muted)] mb-3">
             Khmer Bridge links Khmer youth with Khmer‑American professionals for 1:1 guidance, skill‑building, and community.
