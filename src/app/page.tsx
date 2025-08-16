@@ -21,9 +21,9 @@ export default function Home() {
           <span className="inline-block px-2.5 py-1.5 border border-[var(--border)] rounded-full bg-[var(--card)] text-xs text-[var(--muted)]">
             Pilot · Bay Area / Oakland
           </span>
-          <h1 className="text-[clamp(28px,6vw,42px)] leading-[1.2] mt-2 mb-2 font-bold text-white">
+          <h1 className="text-[clamp(28px,6vw,42px)] leading-[1.2] mt-2 mb-2 font-bold text-[var(--fg)]">
 
-            <span className="italic font-serif text-white">
+            <span className="italic font-serif text-[var(--fg)]">
               Connect with Khmer mentors.<br />
               Grow your career. Stay rooted.</span>
           </h1>
