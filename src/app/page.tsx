@@ -21,8 +21,11 @@ export default function Home() {
           <span className="inline-block px-2.5 py-1.5 border border-[var(--border)] rounded-full bg-[var(--card)] text-xs text-[var(--muted)]">
             Pilot · Bay Area / Oakland
           </span>
-          <h1 className="text-[clamp(28px,6vw,42px)] leading-[1.15] mt-2 mb-2 font-bold">
-            Connect with Khmer mentors. Grow your career. Stay rooted.
+          <h1 className="text-[clamp(28px,6vw,42px)] leading-[1.2] mt-2 mb-2 font-bold text-white">
+            Connect with Khmer mentors.<br />
+            <span className="italic font-serif text-white">
+              Grow your career. Stay rooted.
+            </span>
           </h1>
           <p className="text-[var(--muted)] mb-3">
             Khmer Bridge links Khmer youth with Khmer‑American professionals for 1:1 guidance, skill‑building, and community.
@@ -47,9 +50,9 @@ export default function Home() {
 
         {/* FOR YOUTH & MENTORS */}
         <section id="youth" className="grid grid-cols-1 md:grid-cols-2 gap-6 py-11 scroll-mt-20">
-          <article className="bg-[var(--card)] border border-[var(--border)] rounded-[14px] p-6">
+          <article className="bg-[var(--card)] border border-[var(--border)] rounded-[14px] p-6 flex flex-col">
             <h2 className="text-[clamp(20px,3.5vw,28px)] mb-2 font-bold">For Khmer Youth (15–30)</h2>
-            <ul className="pl-4.5 my-2 space-y-2">
+            <ul className="pl-4.5 my-2 space-y-2 flex-grow">
               <li>Get matched with a mentor in medicine, tech, law, design, and more.</li>
               <li>1:1 chat for questions about school, internships, and first jobs.</li>
               <li>Book sessions that fit your schedule; get reminders.</li>
@@ -57,23 +60,23 @@ export default function Home() {
               <li>Browse scholarships, career guides, and Khmer‑American success stories.</li>
             </ul>
             <a
-              className="inline-block px-3.5 py-2.5 rounded-lg border border-[color-mix(in_oklab,var(--accent),black_12%)] bg-[var(--accent)] text-white font-bold text-sm hover:opacity-90 transition-opacity mt-4"
+              className="px-3.5 py-2.5 rounded-lg border border-[color-mix(in_oklab,var(--accent),black_12%)] bg-[var(--accent)] text-white font-bold text-sm hover:opacity-90 transition-opacity mt-4 self-start"
               href="#signup-youth"
             >
               Join as Mentee
             </a>
           </article>
 
-          <article id="mentors" className="bg-[var(--card)] border border-[var(--border)] rounded-[14px] p-6">
+          <article id="mentors" className="bg-[var(--card)] border border-[var(--border)] rounded-[14px] p-6 flex flex-col">
             <h2 className="text-[clamp(20px,3.5vw,28px)] mb-2 font-bold">For Khmer‑American Professionals</h2>
-            <ul className="pl-4.5 my-2 space-y-2">
+            <ul className="pl-4.5 my-2 space-y-2 flex-grow">
               <li>Give back by mentoring the next generation of Khmer leaders.</li>
               <li>Flexible time commitment; chat or short sessions.</li>
               <li>Build your leadership profile with a verified mentor badge (coming soon).</li>
               <li>Speak on panels or host workshops with our community.</li>
             </ul>
             <a
-              className="inline-block px-3.5 py-2.5 rounded-lg border border-[color-mix(in_oklab,var(--accent-2),black_12%)] bg-[var(--accent-2)] text-[#052e16] font-bold text-sm hover:opacity-90 transition-opacity mt-4"
+              className="px-3.5 py-2.5 rounded-lg border border-[color-mix(in_oklab,var(--accent-2),black_12%)] bg-[var(--accent-2)] text-[#052e16] font-bold text-sm hover:opacity-90 transition-opacity mt-4 self-start"
               href="#signup-mentor"
             >
               Apply to Mentor
