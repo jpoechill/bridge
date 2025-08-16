@@ -35,13 +35,13 @@ export default function Home() {
               className="inline-block px-3.5 py-2.5 rounded-lg border border-[color-mix(in_oklab,var(--accent),black_12%)] bg-[var(--accent)] text-white font-bold text-sm hover:opacity-90 transition-opacity"
               href="#signup-youth"
             >
-              I'm a Youth — Find a Mentor
+              I&apos;m a Youth — Find a Mentor
             </a>
             <a
               className="inline-block px-3.5 py-2.5 rounded-lg border border-[color-mix(in_oklab,var(--accent-2),black_12%)] bg-[var(--accent-2)] text-[#052e16] font-bold text-sm hover:opacity-90 transition-opacity"
               href="#signup-mentor"
             >
-              I'm a Professional — Become a Mentor
+              I&apos;m a Professional — Become a Mentor
             </a>
           </div>
         </section>
@@ -136,7 +136,7 @@ export default function Home() {
         <section id="signup" className="grid grid-cols-1 md:grid-cols-2 gap-6 py-11 scroll-mt-20">
           <div className="bg-[var(--card)] border border-[var(--border)] rounded-[14px] p-6" id="signup-youth">
             <h3 className="text-lg mb-1.5 font-semibold">Youth Sign‑Up</h3>
-            <p className="text-[var(--muted)] mb-0">We're piloting in Oakland. Add your email to get matched when your field opens.</p>
+            <p className="text-[var(--muted)] mb-0">We&apos;re piloting in Oakland. Add your email to get matched when your field opens.</p>
             <a
               className="inline-block px-3.5 py-2.5 rounded-lg border border-[color-mix(in_oklab,var(--accent),black_12%)] bg-[var(--accent)] text-white font-bold text-sm hover:opacity-90 transition-opacity mt-4"
               href="#"
@@ -146,7 +146,7 @@ export default function Home() {
           </div>
           <div className="bg-[var(--card)] border border-[var(--border)] rounded-[14px] p-6" id="signup-mentor">
             <h3 className="text-lg mb-1.5 font-semibold">Mentor Sign‑Up</h3>
-            <p className="text-[var(--muted)] mb-0">Share your field and availability. We'll reach out for onboarding.</p>
+            <p className="text-[var(--muted)] mb-0">Share your field and availability. We&apos;ll reach out for onboarding.</p>
             <a
               className="inline-block px-3.5 py-2.5 rounded-lg border border-[color-mix(in_oklab,var(--accent-2),black_12%)] bg-[var(--accent-2)] text-[#052e16] font-bold text-sm hover:opacity-90 transition-opacity mt-4"
               href="#"
