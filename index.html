@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khmer Bridge - Connect with Khmer speakers and learners worldwide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --fg: #171717;
+            --muted: #737373;
+            --muted-foreground: #a3a3a3;
+            --border: #e5e5e5;
+            --card: #ffffff;
+            --accent: #2563eb;
+            --accent-2: #16a34a;
+            --ring: #2563eb;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0a0a0a;
+                --fg: #ededed;
+                --muted: #a3a3a3;
+                --muted-foreground: #737373;
+                --border: #262626;
+                --card: #171717;
+                --accent: #3b82f6;
+                --accent-2: #22c55e;
+                --ring: #3b82f6;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid var(--border);
+            background: color-mix(in oklab, var(--bg) 92%, transparent);
+            backdrop-filter: blur(12px);
+            backdrop-saturate: 180%;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 16px 0;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+
+        .logo a {
+            color: var(--fg);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .logo a:hover {
+            color: var(--accent);
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Main content */
+        main {
+            padding: 56px 0;
+        }
+
+        /* Hero section */
+        .hero-section {
+            text-align: center;
+            margin-top: 34px;
+            margin-bottom: 16px;
+        }
+
+        .hero-title {
+            font-size: clamp(20px, 4vw, 28px);
+            line-height: 1.2;
+            margin: 0 0 16px 0;
+            font-weight: 700;
+            color: var(--fg);
+        }
+
+        .hero-description {
+            font-size: 20px;
+            color: var(--muted);
+            max-width: 768px;
+            margin: 0 auto 24px auto;
+        }
+
+        /* Filter navigation */
+        .filter-section {
+            margin-bottom: 24px;
+        }
+
+        .filter-nav {
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 8px 4px;
+            border-bottom: 2px solid transparent;
+            color: var(--muted);
+            font-weight: 500;
+            font-size: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            color: var(--fg);
+            border-color: var(--border);
+        }
+
+        .filter-btn.active {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Posts header */
+        .posts-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .results-count {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .sort-options {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .sort-options a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .sort-options a:hover {
+            color: color-mix(in oklab, var(--accent), black 20%);
+        }
+
+        .sort-separator {
+            color: var(--muted-foreground);
+        }
+
+        /* Posts container */
+        .posts-container {
+            background: var(--card);
+            margin-bottom: 24px;
+        }
+
+        .post-item {
+            padding: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .post-item:hover {
+            background: color-mix(in oklab, var(--bg), transparent 95%);
+        }
+
+        .post-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .post-main {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .post-date {
+            font-size: 12px;
+            color: var(--muted);
+            width: 48px;
+            flex-shrink: 0;
+        }
+
+        .post-title {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            flex: 1;
+            transition: color 0.2s;
+        }
+
+        .post-title:hover {
+            color: color-mix(in oklab, var(--accent), black 20%);
+        }
+
+
+
+        .post-location {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+            padding: 28px 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--fg);
+        }
+
+        /* Utility classes */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <a href="index.html">
+                        khmer bridge
+                    </a>
+                </h1>
+                <nav>
+                    <a href="post.html">post ad</a>
+                    <a href="about.html">about</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h3 class="hero-title">Browse Khmer Opportunities to Learn and Lead</h3>
+            <p class="hero-description">
+                Connect with Khmer professionals and peers worldwide. Gain language skills, mentorship, and career
+                guidance while building lasting cultural and professional ties.
+            </p>
+        </div>
+
+        <!-- Simple Text Filter -->
+        <div class="filter-section">
+            <div class="filter-nav">
+                <nav class="filter-buttons">
+                    <button onclick="filterPosts('teachers')" id="filter-teachers" class="filter-btn">
+                        Teachers
+                    </button>
+                    <button onclick="filterPosts('learners')" id="filter-learners" class="filter-btn">
+                        Learners
+                    </button>
+                    <button onclick="filterPosts('exchange')" id="filter-exchange" class="filter-btn">
+                        Language Exchange
+                    </button>
+                    <button onclick="filterPosts('mentors')" id="filter-mentors" class="filter-btn">
+                        Mentorship
+                    </button>
+                    <button onclick="filterPosts('mentees')" id="filter-mentees" class="filter-btn">
+                        Mentees
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <div class="posts-header">
+            <p class="results-count" id="results-count">Showing 33 listings</p>
+            <div class="sort-options" id="sort-options">
+                <a href="index.html">newest first</a>
+                <span class="sort-separator" id="sort-separator">|</span>
+                <a href="index.html?sort=price" id="price-sort">price: low to high</a>
+            </div>
+        </div>
+
+        <div class="posts-container" id="posts-container">
+
+            <!-- TEACHERS - Professional Khmer instructors offering paid lessons -->
+            <div class="post-item" data-type="teachers">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #9333ea;">SK</div>
+                        <span class="post-date">Dec 15</span>
+                        <a href="post-view.html?id=1" class="post-title">
+                            Sopheap - Native Khmer teacher, 5 years experience, online & in-person lessons $15/hr
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Phnom Penh)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="teachers">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #dc2626;">RP</div>
+                        <span class="post-date">Dec 14</span>
+                        <a href="post-view.html?id=4" class="post-title">
+                            Rithy - Business Khmer specialist, former hotel manager teaching professional Khmer
+                            $25/hr
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Siem Reap)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="teachers">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #0d9488;">LM</div>
+                        <span class="post-date">Dec 13</span>
+                        <a href="post-view.html?id=8" class="post-title">
+                            Linda - Patient Khmer teacher for beginners, grew up bilingual, specializes in
+                            pronunciation
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Long Beach)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="teachers">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #8b5cf6;">NC</div>
+                        <span class="post-date">Dec 12</span>
+                        <a href="post-view.html?id=10" class="post-title">
+                            Nary - Online Khmer classes, university professor offering flexible evening schedules
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Phnom Penh)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="teachers">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #52525b;">KS</div>
+                        <span class="post-date">Dec 12</span>
+                        <a href="post-view.html?id=11" class="post-title">
+                            Kunthea - Khmer script & pronunciation specialist, retired linguistics teacher, 30+
+                            years experience
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Kampong Cham)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="teachers">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #0891b2;">AB</div>
+                        <span class="post-date">Dec 11</span>
+                        <a href="post-view.html?id=13" class="post-title">
+                            Arun - Voice coach & pronunciation expert, former radio host, perfect for accent
+                            training
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Montreal)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="teachers">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #7c3aed;">PS</div>
+                        <span class="post-date">Dec 11</span>
+                        <a href="post-view.html?id=15" class="post-title">
+                            Phalla - Traditional Khmer culture & language, temple volunteer teaching cultural
+                            context with language
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Siem Reap)</span>
+                </div>
+            </div>
+
+            <!-- LEARNERS - People seeking to learn Khmer -->
+            <div class="post-item" data-type="learners">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #4f46e5;">JC</div>
+                        <span class="post-date">Dec 14</span>
+                        <a href="post-view.html?id=5" class="post-title">
+                            James - Tech worker wanting to learn Khmer, my girlfriend is Cambodian, willing to pay
+                            $20/hr
+                        </a>
+
+                    </div>
+                    <span class="post-location">(San Francisco)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="learners">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #e11d48;">CR</div>
+                        <span class="post-date">Dec 11</span>
+                        <a href="post-view.html?id=14" class="post-title">
+                            Carmen - Spanish teacher wanting to learn Khmer, can offer Spanish lessons in exchange
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Madrid)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="learners">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #d97706;">EM</div>
+                        <span class="post-date">Dec 10</span>
+                        <a href="post-view.html?id=16" class="post-title">
+                            Emily - Medical student planning mission trip, need basic conversational Khmer for
+                            volunteer work
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Chicago)</span>
+                </div>
+            </div>
+
+            <!-- LANGUAGE EXCHANGE - Mutual learning partnerships -->
+            <div class="post-item" data-type="exchange">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #2563eb;">AC</div>
+                        <span class="post-date">Dec 15</span>
+                        <a href="post-view.html?id=3" class="post-title">
+                            Alex - Canadian-Khmer seeking conversation practice, I help with English, you help with
+                            Khmer
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Toronto)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="exchange">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #db2777;">CV</div>
+                        <span class="post-date">Dec 14</span>
+                        <a href="post-view.html?id=6" class="post-title">
+                            Channary - Cultural exchange & friendship, native Khmer speaker interested in
+                            international friends
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Battambang)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="exchange">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #ca8a04;">JD</div>
+                        <span class="post-date">Dec 13</span>
+                        <a href="post-view.html?id=7" class="post-title">
+                            Julien - French-Khmer language swap, graduate student offering French for Khmer
+                            conversation
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Paris)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="exchange">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #ea580c;">ST</div>
+                        <span class="post-date">Dec 13</span>
+                        <a href="post-view.html?id=9" class="post-title">
+                            Sarah - Weekend conversation groups, organizing casual meetups for Khmer-English
+                            practice
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Sydney)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="exchange">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #059669;">ML</div>
+                        <span class="post-date">Dec 12</span>
+                        <a href="post-view.html?id=12" class="post-title">
+                            Min-jun - Korean-Khmer language exchange, K-pop fan wanting cultural & language exchange
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Seoul)</span>
+                </div>
+            </div>
+
+            <!-- MENTORS - Professional guidance and career mentoring -->
+            <div class="post-item" data-type="mentors">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #475569;">DL</div>
+                        <span class="post-date">Dec 16</span>
+                        <a href="post-view.html?id=17" class="post-title">
+                            David - Tech executive mentoring Khmer professionals in Silicon Valley careers
+                        </a>
+
+                    </div>
+                    <span class="post-location">(San Jose)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="mentors">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #52525b;">SM</div>
+                        <span class="post-date">Dec 15</span>
+                        <a href="post-view.html?id=18" class="post-title">
+                            Sokha - Business owner mentoring entrepreneurship and small business development
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Phnom Penh)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="mentors">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #78716c;">ML</div>
+                        <span class="post-date">Dec 14</span>
+                        <a href="post-view.html?id=19" class="post-title">
+                            Monica - Healthcare professional guiding medical career paths and residency applications
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Los Angeles)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="mentors">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #525252;">PT</div>
+                        <span class="post-date">Dec 13</span>
+                        <a href="post-view.html?id=20" class="post-title">
+                            Pisach - Finance director offering career guidance in banking and investment
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Sydney)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="mentors">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #65a30d;">TF</div>
+                        <span class="post-date">Dec 12</span>
+                        <a href="post-view.html?id=25" class="post-title">
+                            Thy - Certified personal trainer and nutritionist mentoring fitness and wellness goals
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Long Beach)</span>
+                </div>
+            </div>
+
+            <!-- MENTEES - Seeking professional guidance and career development -->
+            <div class="post-item" data-type="mentees">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #0284c7;">RP</div>
+                        <span class="post-date">Dec 16</span>
+                        <a href="post-view.html?id=21" class="post-title">
+                            Rachel - Engineering student seeking guidance on tech career and job applications
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Seattle)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="mentees">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #0891b2;">VK</div>
+                        <span class="post-date">Dec 15</span>
+                        <a href="post-view.html?id=22" class="post-title">
+                            Virak - Recent graduate looking for business mentorship and entrepreneurship advice
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Phnom Penh)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="mentees">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #0f766e;">NK</div>
+                        <span class="post-date">Dec 14</span>
+                        <a href="post-view.html?id=23" class="post-title">
+                            Narith - Medical student seeking guidance on specialty selection and residency planning
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Boston)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="mentees">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #047857;">SC</div>
+                        <span class="post-date">Dec 13</span>
+                        <a href="post-view.html?id=24" class="post-title">
+                            Sreymom - Law student looking for guidance on legal career and bar exam preparation
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Toronto)</span>
+                </div>
+            </div>
+
+            <!-- Additional Teachers -->
+            <div class="post-item" data-type="teachers">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #ea580c;">NV</div>
+                        <span class="post-date">Dec 10</span>
+                        <a href="post-view.html?id=26" class="post-title">
+                            Nara - Children's Khmer teacher, specializes in heritage language learning for kids
+                            $18/hr
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Stockton)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="teachers">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #e11d48;">KS</div>
+                        <span class="post-date">Dec 9</span>
+                        <a href="post-view.html?id=27" class="post-title">
+                            Kunthea - University professor teaching Khmer literature and advanced writing $30/hr
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Paris)</span>
+                </div>
+            </div>
+
+            <!-- Additional Learners -->
+            <div class="post-item" data-type="learners">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #d97706;">MK</div>
+                        <span class="post-date">Dec 8</span>
+                        <a href="post-view.html?id=28" class="post-title">
+                            Michael - Adoptee seeking to reconnect with Khmer culture and language, patient teacher
+                            needed
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Portland)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="learners">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #0891b2;">AH</div>
+                        <span class="post-date">Dec 7</span>
+                        <a href="post-view.html?id=29" class="post-title">
+                            Anna - Medical student learning Khmer to better serve Cambodian-American patients $22/hr
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Boston)</span>
+                </div>
+            </div>
+
+            <!-- Additional Exchange Partners -->
+            <div class="post-item" data-type="exchange">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #059669;">VT</div>
+                        <span class="post-date">Dec 6</span>
+                        <a href="post-view.html?id=30" class="post-title">
+                            Visal - Exchange Khmer for Korean, K-pop fan living in Seoul, virtual language buddy
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Seoul)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="exchange">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #db2777;">LD</div>
+                        <span class="post-date">Dec 5</span>
+                        <a href="post-view.html?id=31" class="post-title">
+                            Lisa - Native French speaker learning Khmer, can teach French in exchange
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Montreal)</span>
+                </div>
+            </div>
+
+            <!-- Additional Mentors -->
+            <div class="post-item" data-type="mentors">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #4f46e5;">SP</div>
+                        <span class="post-date">Dec 4</span>
+                        <a href="post-view.html?id=32" class="post-title">
+                            Sothea - Banking executive mentoring financial literacy and investment for Khmer
+                            community
+                        </a>
+
+                    </div>
+                    <span class="post-location">(NYC)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="mentors">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #7c3aed;">CH</div>
+                        <span class="post-date">Dec 3</span>
+                        <a href="post-view.html?id=33" class="post-title">
+                            Chanthy - Chef and restaurant owner mentoring culinary arts and food business
+                        </a>
+
+                    </div>
+                    <span class="post-location">(LA)</span>
+                </div>
+            </div>
+
+            <!-- Additional Mentees -->
+            <div class="post-item" data-type="mentees">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #0d9488;">KP</div>
+                        <span class="post-date">Dec 2</span>
+                        <a href="post-view.html?id=34" class="post-title">
+                            Kosal - Recent graduate seeking career guidance in nonprofit and community organizing
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Denver)</span>
+                </div>
+            </div>
+
+            <div class="post-item" data-type="mentees">
+                <div class="post-content">
+                    <div class="post-main">
+                        <div class="avatar" style="background: #78716c;">ML</div>
+                        <span class="post-date">Dec 1</span>
+                        <a href="post-view.html?id=35" class="post-title">
+                            Maya - High school student seeking guidance on college applications and scholarship
+                            opportunities
+                        </a>
+
+                    </div>
+                    <span class="post-location">(Phoenix)</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>khmer bridge - connecting Khmer professionals and peers worldwide since 2024</div>
+                <div class="footer-links">
+                    <a href="about.html">about</a> | <a href="safety.html">safety tips</a> | <a
+                        href="contact.html">contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function filterPosts(type) {
+            const posts = document.querySelectorAll('.post-item');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const resultsCount = document.getElementById('results-count');
+            const priceSortOption = document.getElementById('price-sort');
+            const sortSeparator = document.getElementById('sort-separator');
+
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Add active class to clicked button
+            const activeButton = document.getElementById(`filter-${type}`);
+            activeButton.classList.add('active');
+
+            // Hide/show price sorting option based on filter type
+            if (type === 'exchange' || type === 'mentors' || type === 'mentees') {
+                priceSortOption.style.display = 'none';
+                sortSeparator.style.display = 'none';
+            } else {
+                priceSortOption.style.display = 'inline';
+                sortSeparator.style.display = 'inline';
+            }
+
+            let visibleCount = 0;
+
+            posts.forEach(post => {
+                if (post.dataset.type === type) {
+                    post.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+
+            // Update results count
+            const typeText = type === 'teachers' ? 'teachers' :
+                type === 'learners' ? 'learners' :
+                    type === 'exchange' ? 'exchange peers' :
+                        type === 'mentors' ? 'mentors' : 'mentees';
+            resultsCount.textContent = `${visibleCount} ${typeText}`;
+        }
+
+        // Initialize with teachers filter active
+        document.addEventListener('DOMContentLoaded', function () {
+            filterPosts('teachers');
+        });
+    </script>
+</body>
+
+</html>
